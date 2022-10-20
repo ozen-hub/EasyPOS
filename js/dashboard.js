@@ -5,5 +5,5 @@ loadUserDetails=()=>{
         $('#avatar').attr('src',userDetails.avatar);
 }
 setUi=(address)=>{
-    $('.container').load(address);
+    $('#container').load(address);
 }
