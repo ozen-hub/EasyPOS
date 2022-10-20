@@ -5,5 +5,8 @@ loadUserDetails=()=>{
         $('#avatar').attr('src',userDetails.avatar);
 }
 setUi=(address)=>{
+    if (address==='customer.html'){
+        initializeCustomers();
+    }
     $('#container').load(address);
 }
