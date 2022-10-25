@@ -23,6 +23,12 @@ function saveCustomer() {
     customers.push(customer);
     localStorage.setItem('customer', JSON.stringify(customers));
     clearFields();
+    launchModal();
+}
+
+const launchModal=()=>{
+    //document.getElementById('success-modal').click();
+    $('#success-modal').click();
 }
 
 const clearFields = () => {
