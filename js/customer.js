@@ -28,7 +28,7 @@ function setTableData() {
         <td>${data.address}</td>
         <td>${data.salary}</td>
         <td>
-        <button class="btn btn-success btn-sm" onclick="loadUpdateModal(data)">Update</button> | 
+        <button class="btn btn-success btn-sm" onclick="loadUpdateModal(${data})">Update</button> | 
         <button class="btn btn-danger btn-sm">Delete</button>
 </td>
 </tr>`;
@@ -77,12 +77,11 @@ const clearFields = () => {
     $('#customerAddress').val('');
     $('#customerSalary').val('');
 }
-const loadUpdateModal=(data)=>{
-    console.log(data);
-    $('#update_customer_id').val(data.id);
-    $('#update_customer_name').val(data.name);
-    $('#update_customer_address').val(data.address);
-    $('#update_customer_salary').val(data.salary);
+function loadUpdateModal(data){
+    $('#update_customer_id').val(id);
+    $('#update_customer_name').val(name);
+    $('#update_customer_address').val(address);
+    $('#update_customer_salary').val(salary);
 
     $('#update-modal-button').click();
 }
