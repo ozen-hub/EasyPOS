@@ -1,5 +1,7 @@
-let customers = [];
-
+ customers = [];
+click=()=>{
+    console.log('ok')
+}
 function Customer(id, name, address, salary) {
     this.id = id;
     this.name = name;
@@ -10,10 +12,30 @@ function Customer(id, name, address, salary) {
 initializeCustomers = () => {
     let tempData = JSON.parse(localStorage.getItem('customers'));
     console.log(tempData)
+
+
     if (tempData !== null) {
         customers = tempData;
         console.log(tempData);
+        loadTable();
     }
+}
+
+function loadTable() {
+    let htmlData = '';
+    customers.forEach(data => {
+        htmlData += `<tr>
+        <td>${data.id}</td>
+        <td>${data.name}</td>
+        <td>${data.address}</td>
+        <td>${data.salary}</td>
+        <td>
+        <button class="btn btn-success btn-sm">Update</button> | 
+        <button class="btn btn-danger btn-sm">Delete</button>
+</td>
+</tr>`;
+    });
+    console.log(document.getElementById('table-body'));
 }
 
 function saveCustomer() {
@@ -36,7 +58,7 @@ function saveCustomer() {
 }
 
 
-const launchModal = (type, message) => {
+ launchModal = (type, message) => {
     //document.getElementById('success-modal').click();
     $('#exampleModalLabel').html(type);
     $('.modal-body').html(message);
@@ -50,7 +72,7 @@ const launchModal = (type, message) => {
     $('#success-modal').click();
 }
 
-const clearFields = () => {
+ clearFields = () => {
     $('#customerId').val('');
     $('#customerName').val('');
     $('#customerAddress').val('');
