@@ -28,7 +28,7 @@ function setTableData() {
         <td>${data.address}</td>
         <td>${data.salary}</td>
         <td>
-        <button class="btn btn-success btn-sm" onclick="loadUpdateModal(${data})">Update</button> | 
+        <button class="btn btn-success btn-sm" onclick="loadUpdateModal('${data.id}','${data.name}','${data.address}', ${data.salary})">Update</button> | 
         <button class="btn btn-danger btn-sm">Delete</button>
 </td>
 </tr>`;
@@ -56,11 +56,10 @@ function saveCustomer() {
 }
 
 
-
 const launchModal = (type, message) => {
     //document.getElementById('success-modal').click();
     $('#exampleModalLabel').html(type);
-    $('.modal-body').html(message);
+    $('.save-data-body').html(message);
     /* let showMessage=message;
      title='';
      if (type==='success'){
@@ -77,7 +76,8 @@ const clearFields = () => {
     $('#customerAddress').val('');
     $('#customerSalary').val('');
 }
-function loadUpdateModal(data){
+
+function loadUpdateModal(id, name, address, salary) {
     $('#update_customer_id').val(id);
     $('#update_customer_name').val(name);
     $('#update_customer_address').val(address);
