@@ -18,10 +18,12 @@ initializeCustomers = () => {
 }
 
 function setTableData() {
-    console.log('ok')
+    searchText = $('#search').val().toLowerCase();
     let htmlData = '';
     customers.forEach(data => {
-        htmlData += `<tr>
+        console.log(searchText)
+        if (data.name.toLowerCase().includes(searchText) || data.address.toLowerCase().includes(searchText)) {
+            htmlData += `<tr>
         <td>${data.id}</td>
         <td>${data.name}</td>
         <td>${data.address}</td>
@@ -31,6 +33,7 @@ function setTableData() {
         <button class="btn btn-danger btn-sm" onclick="deleteCustomer('${data.id}')";>Delete</button>
 </td>
 </tr>`;
+        }
     });
     $('#table_body').html(htmlData);
 }
@@ -92,7 +95,7 @@ const clearFields = () => {
 let tempCustomerId = 0;
 
 function loadUpdateModal(id, name, address, salary) {
-    tempCustomerId=id;
+    tempCustomerId = id;
     $('#update_customer_id').val(id);
     $('#update_customer_name').val(name);
     $('#update_customer_address').val(address);
@@ -104,9 +107,9 @@ function loadUpdateModal(id, name, address, salary) {
 function updateCustomer() {
     for (let tempId = 0; tempId < customers.length; tempId++) {
         if (customers[tempId].id === tempCustomerId) {
-            customers[tempId].name=$('#update_customer_name').val()
-            customers[tempId].address=$('#update_customer_address').val()
-            customers[tempId].salary=Number($('#update_customer_salary').val())
+            customers[tempId].name = $('#update_customer_name').val()
+            customers[tempId].address = $('#update_customer_address').val()
+            customers[tempId].salary = Number($('#update_customer_salary').val())
             localStorage.setItem('customers', JSON.stringify(customers));
             $('#update-close').click();
             launchModal('Updated!', 'Customer Updated');
