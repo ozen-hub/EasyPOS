@@ -1,23 +1,33 @@
-let customers=[];
-function Customer(id,name,address,salary){
-    this.id=id;
-    this.name=name;
-    this.address=address;
-    this.salary=salary;
+let customers = [];
+
+function Customer(id, name, address, salary) {
+    this.id = id;
+    this.name = name;
+    this.address = address;
+    this.salary = salary;
 };
-initializeCustomers=()=>{
+initializeCustomers = () => {
     let tempData = JSON.parse(localStorage.getItem('customers'));
-    if (tempData!==null){
+    if (tempData !== null) {
         console.log(tempData);
     }
 }
-function saveCustomer(){
-    let customer =new Customer(
+
+function saveCustomer() {
+    let customer = new Customer(
         $('#customerId').val(),
         $('#customerName').val(),
         $('#customerAddress').val(),
         Number($('#customerSalary').val())
     );
     customers.push(customer);
-    localStorage.setItem('customer',JSON.stringify(customers));
+    localStorage.setItem('customer', JSON.stringify(customers));
+    clearFields();
+}
+
+const clearFields = () => {
+    $('#customerId').val('');
+    $('#customerName').val('');
+    $('#customerAddress').val('');
+    $('#customerSalary').val('');
 }
