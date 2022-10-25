@@ -1,7 +1,5 @@
- customers = [];
-click=()=>{
-    console.log('ok')
-}
+let customers = [];
+
 function Customer(id, name, address, salary) {
     this.id = id;
     this.name = name;
@@ -17,11 +15,11 @@ initializeCustomers = () => {
     if (tempData !== null) {
         customers = tempData;
         console.log(tempData);
-        loadTable();
+        setTableData();
     }
 }
 
-function loadTable() {
+function setTableData() {
     let htmlData = '';
     customers.forEach(data => {
         htmlData += `<tr>
@@ -35,7 +33,7 @@ function loadTable() {
 </td>
 </tr>`;
     });
-    console.log(document.getElementById('table-body'));
+    $('#table_body').html(htmlData);
 }
 
 function saveCustomer() {
@@ -58,7 +56,7 @@ function saveCustomer() {
 }
 
 
- launchModal = (type, message) => {
+const launchModal = (type, message) => {
     //document.getElementById('success-modal').click();
     $('#exampleModalLabel').html(type);
     $('.modal-body').html(message);
@@ -72,7 +70,7 @@ function saveCustomer() {
     $('#success-modal').click();
 }
 
- clearFields = () => {
+const clearFields = () => {
     $('#customerId').val('');
     $('#customerName').val('');
     $('#customerAddress').val('');

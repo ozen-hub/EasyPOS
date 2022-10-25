@@ -7,7 +7,13 @@
 </head>
 <body>
 
+
+
     <div class="container">
+        <p style="text-align: right; padding: 0 15px">
+            <button onclick="setTableData()" class="btn btn-warning">Load Table</button>
+        </p>
+
         <div class="row">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <label for="customerId">Customer Id</label>
@@ -51,7 +57,7 @@
                         <th>Options</th>
                     </tr>
                 </thead>
-                <tbody id="table-body">
+                <tbody id="table_body">
 
                 </tbody>
             </table>
@@ -84,9 +90,5 @@
             </div>
         </div>
     </div>
-
-    <button onclick="click()">Click me</button>
-    <script src="../js/customer.js"></script>
-    <script src="../js/dashboard.js"></script>
 </body>
 </html>

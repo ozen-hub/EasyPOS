@@ -1,6 +1,4 @@
-click=()=>{
-    console.log('ok')
-}
+
 loadUserDetails=()=>{
     try {
         let userDetails =
