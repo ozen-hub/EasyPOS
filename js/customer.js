@@ -10,8 +10,6 @@ function Customer(id, name, address, salary) {
 initializeCustomers = () => {
     let tempData = JSON.parse(localStorage.getItem('customers'));
     console.log(tempData)
-
-
     if (tempData !== null) {
         customers = tempData;
         console.log(tempData);
@@ -20,6 +18,7 @@ initializeCustomers = () => {
 }
 
 function setTableData() {
+    console.log('ok')
     let htmlData = '';
     customers.forEach(data => {
         htmlData += `<tr>
@@ -49,6 +48,7 @@ function saveCustomer() {
         localStorage.setItem('customers', JSON.stringify(customers));
         clearFields();
         launchModal('success!', 'Customer Saved');
+        setTableData();
     } else {
         launchModal('warning!', 'Already Exists');
     }
