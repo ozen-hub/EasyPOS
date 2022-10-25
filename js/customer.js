@@ -34,11 +34,12 @@ function setTableData() {
     });
     $('#table_body').html(htmlData);
 }
-function deleteCustomer(id){
-    if(confirm('are you sure?')){
-        for (let tempId=0; tempId<customers.length; tempId++){
-            if (customers[tempId].id===id){
-                customers.splice(tempId,1);
+
+function deleteCustomer(id) {
+    if (confirm('are you sure?')) {
+        for (let tempId = 0; tempId < customers.length; tempId++) {
+            if (customers[tempId].id === id) {
+                customers.splice(tempId, 1);
                 localStorage.setItem('customers', JSON.stringify(customers));
                 launchModal('Deleted!', 'Customer Deleted');
                 setTableData();
@@ -88,12 +89,28 @@ const clearFields = () => {
     $('#customerAddress').val('');
     $('#customerSalary').val('');
 }
+let tempCustomerId = 0;
 
 function loadUpdateModal(id, name, address, salary) {
+    tempCustomerId=id;
     $('#update_customer_id').val(id);
     $('#update_customer_name').val(name);
     $('#update_customer_address').val(address);
     $('#update_customer_salary').val(salary);
 
     $('#update-modal-button').click();
+}
+
+function updateCustomer() {
+    for (let tempId = 0; tempId < customers.length; tempId++) {
+        if (customers[tempId].id === tempCustomerId) {
+            customers[tempId].name=$('#update_customer_name').val()
+            customers[tempId].address=$('#update_customer_address').val()
+            customers[tempId].salary=Number($('#update_customer_salary').val())
+            localStorage.setItem('customers', JSON.stringify(customers));
+            $('#update-close').click();
+            launchModal('Updated!', 'Customer Updated');
+            setTableData();
+        }
+    }
 }
