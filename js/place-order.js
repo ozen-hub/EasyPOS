@@ -56,7 +56,7 @@ function Cart(code,description,unitPrice,qty,total){
 }
 function addToCart(){
     let qty = Number($('#qty').val());
-    let unitPrice = Number($('#unit-Price').val());
+    let unitPrice = Number($('#unit-price').val());
     let total = qty*unitPrice;
     tempCartObject =
         new Cart(
@@ -82,5 +82,13 @@ const setCartData=()=>{
 </tr>`;
     });
     $('#table').html(rows);
+    calculateTotal();
+}
 
+const calculateTotal=()=>{
+    let netTotal=0;
+    cart.forEach(response=>{
+        netTotal+=response.total;
+    });
+    $('#total').html(netTotal);
 }
