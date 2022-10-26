@@ -142,11 +142,46 @@ const generateOrderId=()=>{
         // let numberOrderId = Number(stringOrderId);
         // let incrementedId=++numberOrderId;
         // let finalizeOrderId = 'D-'+incrementedId;
-        let tempOrderId = Number(tempOrdersData[tempOrdersData.length-1].orderid.split('-')[1]);
+        let tempOrderId = Number(tempOrdersData[tempOrdersData.length-1].orderId.split('-')[1]);
         let finalizeOrderId = 'D-'+(tempOrderId+1);
         $('.order-id').html(finalizeOrderId);
     }else{
         $('.order-id').html('D-1');
     }
 
+}
+function Order(orderId, date, total, customer,orderItems) {
+    this.orderId=orderId;
+    this.date=date;
+    this.total=total;
+    this.customer=customer;
+    this.orderItems=orderItems;
+}
+function OrderItems(code, qty, total) {
+    this.code=code;
+    this.qty=qty;
+    this.total=total;
+}
+function placeOrder() {
+    tempOrderArr=[];
+    let tempOrdersData = JSON.parse(localStorage.getItem('orders'));
+    if (tempOrdersData !== null) {
+        tempOrderArr=tempOrdersData;
+    }
+
+    let orderItemsArr=[];
+    cart.forEach(response=>{
+        let item=new OrderItems(response.code,response.qty,response.total);
+        orderItemsArr.push(item);
+    });
+    let order = new Order(
+        $('.order-id').html(),
+        $('.date').html(),
+        $('.total').html(),
+        $('#customer_id').val(),
+        orderItemsArr);
+    tempOrderArr.push(order);
+    localStorage.setItem('orders', JSON.stringify(tempOrderArr));
+    generateOrderId();
+    alert('Order placed!');
 }
