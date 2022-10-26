@@ -1,5 +1,6 @@
 let items=[];
 let customers=[];
+let cart=[];
 const loadData = () => {
   // load item codes
     let tempItemData = JSON.parse(localStorage.getItem('items'));
@@ -45,4 +46,41 @@ function setItemData(){
     $('#description').val(tempItem.description);
     $('#unit-price').val(tempItem.unitPrice);
     $('#qty-on-hand').val(tempItem.qtyOnHand);
+}
+function Cart(code,description,unitPrice,qty,total){
+    this.code=code;
+    this.description=description;
+    this.unitPrice=unitPrice;
+    this.qty=qty;
+    this.total=total;
+}
+function addToCart(){
+    let qty = Number($('#qty').val());
+    let unitPrice = Number($('#unit-Price').val());
+    let total = qty*unitPrice;
+    tempCartObject =
+        new Cart(
+            $('#item_code').val(),
+            $('#description').val(),
+            unitPrice,
+            qty,
+            total
+        );
+    cart.push(tempCartObject);
+    setCartData();
+};
+const setCartData=()=>{
+    let rows = ``;
+    cart.forEach(response=>{
+        rows+=`<tr>
+<td>${response.code}</td>
+<td>${response.description}</td>
+<td>${response.unitPrice}</td>
+<td>${response.qty}</td>
+<td>${response.total}</td>
+<td><button class="btn btn-danger btn-sm" onclick="#">Delete</button></td>
+</tr>`;
+    });
+    $('#table').html(rows);
+
 }
