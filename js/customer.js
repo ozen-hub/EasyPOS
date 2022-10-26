@@ -73,16 +73,8 @@ function saveCustomer() {
 
 
 const launchModal = (type, message) => {
-    //document.getElementById('success-modal').click();
     $('#exampleModalLabel').html(type);
     $('.save-data-body').html(message);
-    /* let showMessage=message;
-     title='';
-     if (type==='success'){
-         title='Success!';
-     }else if(type==='warning'){
-         title='Warinng!'
-     }*/
     $('#success-modal').click();
 }
 
