@@ -36,7 +36,6 @@ function setCustomerData(){
     $('#address').val(tempCustomer.address);
     $('#salary').val(tempCustomer.salary);
 }
-
 $('#item_code').change(()=>{
     setItemData();
 });
@@ -53,16 +52,25 @@ function Cart(code,description,unitPrice,qty,total){
     this.unitPrice=unitPrice;
     this.qty=qty;
     this.total=total;
-}
+};
 function addToCart(){
     let qty = Number($('#qty').val());
     let unitPrice = Number($('#unit-price').val());
     let total = qty*unitPrice;
+    if (qty>Number($('#qty-on-hand').val())){
+        alert('Please Enter a Valid QTY');
+        return;
+    }
+    let rowNumber=isExists($('#item_code').val());
 
-   let rowNumber=isExists($('#item_code').val());
 
     if (rowNumber!=-1){
-        cart[rowNumber].qty=cart[rowNumber].qty+qty;
+        let existsTotal = cart[rowNumber].qty+qty;
+        if (Number($('#qty-on-hand').val())<existsTotal){
+            alert('Please Enter a Valid QTY');
+            return;
+        }
+        cart[rowNumber].qty=existsTotal;
         cart[rowNumber].total=cart[rowNumber].total+total;
     }else{
         tempCartObject =
@@ -91,15 +99,14 @@ const setCartData=()=>{
     });
     $('#table').html(rows);
     calculateTotal();
-}
-
+};
 const calculateTotal=()=>{
     let netTotal=0;
     cart.forEach(response=>{
         netTotal+=response.total;
     });
     $('#total').html(netTotal);
-}
+};
 const isExists=(code)=>{
     for (let i = 0; i < cart.length; i++) {
         if (cart[i].code==code){
@@ -107,4 +114,4 @@ const isExists=(code)=>{
         }
     }
     return -1;
-}
+};
