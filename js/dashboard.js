@@ -1,9 +1,5 @@
 
 loadUserDetails=()=>{
-    $('#item').hide();
-    $('#orders').hide();
-    $('#place-order').hide();
-
     try {
         let userDetails =
             JSON.parse(localStorage.getItem('user'));
@@ -16,16 +12,12 @@ loadUserDetails=()=>{
 
 }
 
-function setUi(name){
-    $('#customer').fadeOut(1000);
-    $('#item').fadeOut(1000);
-    $('#orders').fadeOut(1000);
-    $('#place-order').fadeOut(1000);
-
-    switch (name) {
-        case "customer": $('#customer').show(1000);break;
-        case "item":$('#item').show(1000);break;
-        case "place-order":$('#orders').show(1000);break;
-        case "orders":$('#place-order').show(1000);
-    }
+function setUi(location){
+    $('#frame').attr('src',location);
+   /* switch (name) {
+        case "customer": $('#frame').attr('src','../pages/customer.html');break;
+        case "item":$('#frame').attr('src','../pages/item.html');break;
+        case "place-order":$('#frame').attr('src','../pages/place-order.html');break;
+        case "orders":$('#frame').attr('src','../pages/orders.html');
+    }*/
 }
