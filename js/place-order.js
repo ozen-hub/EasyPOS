@@ -126,7 +126,7 @@ const isExists = (code) => {
     }
     return -1;
 };
-const generateOrderId=()=>{
+const generateOrderId = () => {
     // XQUY ==> prefix ==> item==> XQUY-PR-1  | [1000]=> (1000-> MAX - to 1000) => 1=>(1000)
     //==================================
 
@@ -142,36 +142,39 @@ const generateOrderId=()=>{
         // let numberOrderId = Number(stringOrderId);
         // let incrementedId=++numberOrderId;
         // let finalizeOrderId = 'D-'+incrementedId;
-        let tempOrderId = Number(tempOrdersData[tempOrdersData.length-1].orderId.split('-')[1]);
-        let finalizeOrderId = 'D-'+(tempOrderId+1);
+        let tempOrderId = Number(tempOrdersData[tempOrdersData.length - 1].orderId.split('-')[1]);
+        let finalizeOrderId = 'D-' + (tempOrderId + 1);
         $('.order-id').html(finalizeOrderId);
-    }else{
+    } else {
         $('.order-id').html('D-1');
     }
 
 }
-function Order(orderId, date, total, customer,orderItems) {
-    this.orderId=orderId;
-    this.date=date;
-    this.total=total;
-    this.customer=customer;
-    this.orderItems=orderItems;
+
+function Order(orderId, date, total, customer, orderItems) {
+    this.orderId = orderId;
+    this.date = date;
+    this.total = total;
+    this.customer = customer;
+    this.orderItems = orderItems;
 }
+
 function OrderItems(code, qty, total) {
-    this.code=code;
-    this.qty=qty;
-    this.total=total;
+    this.code = code;
+    this.qty = qty;
+    this.total = total;
 }
+
 function placeOrder() {
-    tempOrderArr=[];
+    tempOrderArr = [];
     let tempOrdersData = JSON.parse(localStorage.getItem('orders'));
     if (tempOrdersData !== null) {
-        tempOrderArr=tempOrdersData;
+        tempOrderArr = tempOrdersData;
     }
 
-    let orderItemsArr=[];
-    cart.forEach(response=>{
-        let item=new OrderItems(response.code,response.qty,response.total);
+    let orderItemsArr = [];
+    cart.forEach(response => {
+        let item = new OrderItems(response.code, response.qty, response.total);
         orderItemsArr.push(item);
     });
     let order = new Order(
@@ -182,17 +185,42 @@ function placeOrder() {
         orderItemsArr);
     tempOrderArr.push(order);
     localStorage.setItem('orders', JSON.stringify(tempOrderArr));
+
+    //========================
+    updateItemQty(orderItemsArr);
+
+
+    //========================
+
     generateOrderId();
-    cart=[];
+    cart = [];
     setCartData();
     alert('Order placed!');
 }
 
-const removeItem=(code)=>{
-    if(confirm('are you sure?')){
+const updateItemQty = (details) => {
+
+    let itemArr = JSON.parse(localStorage.getItem('items'));
+    details.forEach(responseData => {
+        if (itemArr !== null) {
+            for (let i = 0; i < itemArr.length; i++) {
+                if (itemArr[i].code==responseData.code){
+                    itemArr[i].qtyOnHand=(itemArr[i].qtyOnHand-responseData.qty);
+                    break;
+                }
+            }
+        }
+    });
+    localStorage.setItem('items', JSON.stringify(itemArr));
+    loadData();
+}
+
+
+const removeItem = (code) => {
+    if (confirm('are you sure?')) {
         for (let i = 0; i < cart.length; i++) {
-            if (cart[i].code==code){
-                cart.splice(i,1);
+            if (cart[i].code == code) {
+                cart.splice(i, 1);
                 setCartData();
             }
         }
