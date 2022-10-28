@@ -34,8 +34,26 @@ const showDetails=(id)=>{
         }
         // load table one data
         // load table Two data
+        let tableRowData = '';
+        order.orderItems.forEach(response=>{
+            let desc='';
+            let items = JSON.parse(localStorage.getItem('items'));
+            if (items !== null) {
+                tempItem = items.find(e=> e.code==response.code);
+                desc=tempItem.description;
+            }
 
+            tableRowData+=`<tr>
+        <td>${response.code}</td>
+        <td>${desc}</td>
+        <td>${response.unitPrice}</td>
+        <td>${response.qty}</td>
+        <td>${response.total}</td>
+</tr>`;
+        });
+        $('#itemDetails').html(tableRowData);
         // load table Two data
 
     }
 }
+
