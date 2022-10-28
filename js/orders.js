@@ -16,5 +16,11 @@ function setTableData() {
 <td><button class="btn btn-primary btn-sm" onclick="showDetails('${responseData.orderId}')">Show Details</button></td>
 </tr>`;
     });
-    $('tbody').html(rowData);
+    $('#table').html(rowData);
+}
+const showDetails=(id)=>{
+    const order = orders.find((e)=>id==e.orderId);
+    if (order!=undefined){
+        $('#modal-button').click();
+    }
 }
