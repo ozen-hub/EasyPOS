@@ -105,7 +105,7 @@ const setCartData = () => {
 <td>${response.unitPrice}</td>
 <td>${response.qty}</td>
 <td>${response.total}</td>
-<td><button class="btn btn-danger btn-sm" onclick="#">Delete</button></td>
+<td><button class="btn btn-danger btn-sm" onclick="removeItem('${response.code}')">Delete</button></td>
 </tr>`;
     });
     $('#table').html(rows);
@@ -183,5 +183,19 @@ function placeOrder() {
     tempOrderArr.push(order);
     localStorage.setItem('orders', JSON.stringify(tempOrderArr));
     generateOrderId();
+    cart=[];
+    setCartData();
     alert('Order placed!');
+}
+
+const removeItem=(code)=>{
+    if(confirm('are you sure?')){
+        for (let i = 0; i < cart.length; i++) {
+            if (cart[i].code==code){
+                cart.splice(i,1);
+                setCartData();
+            }
+        }
+    }
+
 }
