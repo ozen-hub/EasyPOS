@@ -180,7 +180,7 @@ function placeOrder() {
     let order = new Order(
         $('.order-id').html(),
         $('.date').html(),
-        $('.total').html(),
+        $('#total').html(),
         $('#customer_id').val(),
         orderItemsArr);
     tempOrderArr.push(order);
