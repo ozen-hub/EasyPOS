@@ -22,5 +22,20 @@ const showDetails=(id)=>{
     const order = orders.find((e)=>id==e.orderId);
     if (order!=undefined){
         $('#modal-button').click();
+        // load table one data
+        $('#orderId').html(order.orderId);
+        $('#cost').html(order.total);
+        $('#date').html(order.date);
+        $('#customerId').html(order.customer);
+        let customers = JSON.parse(localStorage.getItem('customers'));
+        if (customers !== null) {
+           tempCustomer = customers.find(e=>e.id==order.customer);
+            $('#customerName').html(tempCustomer.name);
+        }
+        // load table one data
+        // load table Two data
+
+        // load table Two data
+
     }
 }
